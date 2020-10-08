@@ -1,4 +1,5 @@
-![file](https://www.emperinter.info/wp-content/uploads/2019/08/1565886091-image-1565886086031.png)
+![file](https://www.emperinter.info/wp-content/uploads/2020/10/1602158542-messageboard.png)
+![](https://www.emperinter.info/wp-content/uploads/2020/10/1602158685-messageboard_back.png)
 # 一、缘由
 **自己最近学完PHP和Mysql，就尝试写了一个留言本，但还有很多不好和错误的地方，欢迎大家多多指导!**
 
