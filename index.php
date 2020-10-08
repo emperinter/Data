@@ -149,11 +149,11 @@
                     <p align="center" style="font-size:22px;">
                         <button  class="btn btn-md btn-primary" onClick="window.location.href=\'index.php?page=1\'">Home Page</button>
 
-                        <button  class="btn btn-md btn-primary" onClick="window.location.href=\'index.php?page=\''. ($page - 1) . '"> Previous Page </button>  
+                        <button  class="btn btn-md btn-primary" onClick="window.location.href=\'index.php?page='. ($page - 1) . '\'"> Previous Page </button>  
 
-                        <button  class="btn btn-md btn-primary" onClick="window.location.href=\'index.php?page=\'' . ($page + 1) . '"> Next Page</button>
+                        <button  class="btn btn-md btn-primary" onClick="window.location.href=\'index.php?page=' . ($page + 1) . '\'"> Next Page</button>
                         
-                        <button  class="btn btn-md btn-primary" onClick="window.location.href=\'index.php?page=\'' . $total . '">Last Page</button>
+                        <button  class="btn btn-md btn-primary" onClick="window.location.href=\'index.php?page=' . $total . '\'">Last Page</button>
                     </p>';
             } else {
                 echo '<div align="center" style="font-size:88px;color:red;">No Data ! </div>';
