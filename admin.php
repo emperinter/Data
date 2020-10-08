@@ -109,7 +109,7 @@
 		<br/>
 			
 		<div align="center">
-			<form action="#" method="POST">
+			<form action="" method="POST">
 				<table border="1" width="95%">
 					<tr>
 						<?php echo '<input type="hidden" name="username" value="' . $username . '"/>';	?>
@@ -153,7 +153,7 @@
 							echo "<td style='text-align:center;'>" . date("Y-m-d H:i:s",strtotime($row['date'])) . "</std>";
 							echo '
 								<td style="text-align:center;">
-									<form action="#" method="POST">
+									<form action="" method="POST">
 										<input type="hidden" name="noteid" value="' . $id . '"> 
 										<input type="hidden" name="username" value="' . $username . '"> 						
                                         <button type="submit" class="btn  btn-warning" align="right">' . $id . '</button>					
