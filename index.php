@@ -1,6 +1,6 @@
 <?php
 
-    session_start();
+    // session_start();
 
     include 'connection.php';
 
@@ -50,35 +50,28 @@
 
         <title>MessageBoard</title>
 
-        <!-- Bootstrap core CSS -->
-        <link href="BT/docs/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="index.css" rel="stylesheet">
 
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <link href="BT/docs/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
-        <!-- Custom styles for this template -->
-        <link href="sticky-footer.css" rel="stylesheet">
-        <link href="jumbotron.css" rel="stylesheet">
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
 
-            <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="BT/docs/assets/js/vendor/jquery.min.js"><\/script>')</script>
-        <script src="BT/docs/dist/js/bootstrap.min.js"></script>
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <script src="BT/docs/assets/js/ie10-viewport-bug-workaround.js"></script>	
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+96DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script>window.jQuery || document.write('<script src="BT/docs/dist/js/vendor/jquery-slim.min.js"><\/script>')</script>
-        <script src="BT/docs/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     </head>
 
     <body>
 
     <!-- 头部导航栏 -->
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-inverse navbar-expand-lg ">
             <div class="container">
-                <!--<a class="navbar-brand" href="https://www.emperinter.cf">Message Board</a>       -->
+                <a class="navbar-brand" href="https://www.emperinter.cf">Message Board</a>      
 
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-control="navr">
@@ -89,14 +82,14 @@
                     </button>
                 </div>	
                 <?php
-                    // session_start();
+                    session_start();
                     if(isset($_SESSION['username']) && ($_SESSION['username']) != NULL){
                         echo '
-                            <div class="navbar-collapse collapse" align="right">
-                                <a style="font-size:18px;color:green;">Welcome ! ' . $_SESSION['username'] . '</a>
-                                    <form id="ReturnAdminAtHomePage" action="admin.php" method="POST">
+                            <div id="navbar" class="navbar-collapse collapse">
+                                <a class="navbar-brand"> <span>|</span> Welcome ! ' . $_SESSION['username'] . '</a>
+                                    <form class="navbar-form navbar-right" id="ReturnAdminAtHomePage" action="admin.php" method="POST">
                                         <input type="hidden" name="loginusername" value="' . trim($_SESSION['username']) . '"> 
-                                        <button type="submit" class="btn btn-success" align="right">后台</button>
+                                        <button type="submit" class="btn btn-success">后台</button>
                                     </form>
                             </div>				
                         ';
@@ -121,13 +114,10 @@
             </div>
         </nav>
 
-        <!-- Main jumbotron for a primary marketing message or call to action -->
-        <!--    <div class="jumbotron">-->
-        <!-- Begin page content -->
 
-        <div>
-            <p align="center" style="font-size:50px;color:blue;">MessageBoard</p>
-        </div>	
+            <div>
+                <p align="center" style="font-size:50px;color:blue;">MessageBoard</p>
+            </div>	
 
         <hr/>
 
@@ -139,17 +129,42 @@
                     echo '<main role="main" class="container">
                     <div class="jumbotron">';
                     echo '<p class="lead">' . $row['note'] . '</p><hr/>';
-                    echo '<strong><table><tr><td>Noteid:' . $row['noteid'] . '</td><td>UserName:' . $row['username'] . '</td><td>Date:'. date("Y-m-d H:i:s",strtotime($row['date'])) . '</td></tr><</table></strong>' ;
+                    echo '<strong>
+                            <table border="0" width="100%" padding="10" align="center">
+                                <tr>
+                                    <td>Noteid: ' . $row['noteid'] . '</td><span></span>
+                                    <td>UserName: ' . $row['username'] . '</td><span></span>
+                                    <td>Date: '. date("Y-m-d H:i:s",strtotime($row['date'])) . '</td>
+                                </tr>
+                            </table>
+                        </strong>' ;
                     echo '</div></main>';
                 }
                 //翻页
-                echo '<p align="center" style="font-size:22px;"><a href="index.php?page=1">Home page</a>  <a href="index.php?page=' . ($page - 1) . '">Previous Page</a>   <a href="index.php?page=' . ($page + 1) . '">Next Page</a>  <a href="index.php?page=' . $total . '">Last Page</a><br/> The <strong style="color:red;">' . $page . '</strong> Page/Total' . $total . 'Page';
+                echo '
+                    <hr/> 
+                    <p align="center" style="font-size:22px;">
+                    Page:<strong style="color:red;">' . $page . '</strong> / Total: ' . $total . ' Pages
+                    </p>
+                    <p align="center" style="font-size:22px;">
+                        <button  class="btn btn-md btn-primary" onClick="window.location.href=\'index.php?page=1\'">Home Page</button>
+
+                        <button  class="btn btn-md btn-primary" onClick="window.location.href=\'index.php?page=\''. ($page - 1) . '"> Previous Page </button>  
+
+                        <button  class="btn btn-md btn-primary" onClick="window.location.href=\'index.php?page=\'' . ($page + 1) . '"> Next Page</button>
+                        
+                        <button  class="btn btn-md btn-primary" onClick="window.location.href=\'index.php?page=\'' . $total . '">Last Page</button>
+                    </p>';
             } else {
-                echo '<div align="center">No Data ! </div>';
+                echo '<div align="center" style="font-size:88px;color:red;">No Data ! </div>';
             }
         ?>
 
 
+
+        <br/>
+        <br/>
+        <br/>
 
         <footer class="footer mt-auto py-3">
             <div class="container" align="center" style="text-decoration:none;font-size:22px;">
@@ -157,30 +172,13 @@
             </div>
         </footer>
 
+
     </body>   
 </html>
 
 
 
 <?php
-    // session_cache_limiter( "private, must-revalidate" );
-    
-    // session_start();
-
-    // if(isset($_SESSION['username'])){
-	// 	$user = $_SESSION['username'];
-	// }else{	
-	// 	$user = trim($_POST['loginusername']);
-	// 	$_SESSION['username'] = $user;
-	// }
-
-	// if(isset($_SESSION['password'])){
-	// 	$pass = $_SESSION['password'];
-	// }else{
-	// 	$pass=  trim(md5($_POST['loginpassword']));
-	// 	$_SESSION['password'] = $pass;
-	// }
-
     $user = trim($_POST['loginusername']);
     $pass=  trim(md5($_POST['loginpassword']));
 

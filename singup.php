@@ -147,7 +147,7 @@
                     echo '
                         <script>                    
                             function returnHomepage(){
-                                window.location.href = "index.php";
+                                window.location.href = "admin.php";
                             }
                             returnHomepage();
                         </script>
@@ -159,7 +159,6 @@
                         </script>
                     ';
                 }
-                
                 mysqli_close($conn);
             }    
         }
