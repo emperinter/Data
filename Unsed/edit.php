@@ -12,9 +12,7 @@
 
 	$sql = "insert into note(username,note,date) values ('$user','$post','$time')";
 
-
 	$result = mysqli_query($conn,$sql);
-
 
 	echo "<div align='center' class='center-in-center'>";
 

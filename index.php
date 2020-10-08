@@ -23,11 +23,12 @@
 
 
     if ($page <= 1) {
-    $page = 1;
+        $page = 1;
     }
     if ($page >= $total) {
-    $page = $total;
+        $page = $total;
     }
+
     $offset = ($page - 1) * $num;
 
     $sql = "select  noteid,username,note,date  from note order by noteid  desc limit $offset , $num";
@@ -63,12 +64,12 @@
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="EU/BT/docs/assets/js/vendor/jquery.min.js"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="BT/docs/assets/js/vendor/jquery.min.js"><\/script>')</script>
         <script src="BT/docs/dist/js/bootstrap.min.js"></script>
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="BT/docs/assets/js/ie10-viewport-bug-workaround.js"></script>	
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+96DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script>window.jQuery || document.write('<script src="EU/BT/docs/dist/js/vendor/jquery-slim.min.js"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="BT/docs/dist/js/vendor/jquery-slim.min.js"><\/script>')</script>
         <script src="BT/docs/dist/js/bootstrap.bundle.min.js"></script>
     </head>
 
@@ -88,22 +89,21 @@
                     </button>
                 </div>	
                 <?php
-
-                    //session_start();
-
-                    if(isset($_SESSION['username'])){
+                    // session_start();
+                    if(isset($_SESSION['username']) && ($_SESSION['username']) != NULL){
                         echo '
                             <div class="navbar-collapse collapse" align="right">
                                 <a style="font-size:18px;color:green;">Welcome ! ' . $_SESSION['username'] . '</a>
-                                    <form>
-                                        <button type="button" class="btn btn-success" align="right" onClick="admin()">后台</button>
+                                    <form id="ReturnAdminAtHomePage" action="admin.php" method="POST">
+                                        <input type="hidden" name="loginusername" value="' . trim($_SESSION['username']) . '"> 
+                                        <button type="submit" class="btn btn-success" align="right">后台</button>
                                     </form>
-                            </div>
+                            </div>				
                         ';
                     }else{
                         echo '        
                             <div id="navbar" class="navbar-collapse collapse">
-                                <form class="navbar-form navbar-right" action="check.php" method="POST">
+                                <form class="navbar-form navbar-right" action="#" method="POST">
                                     <div class="form-group">
                                         <input type="text" id="textfield" class="form-control" placeholder="username" name="loginusername" autofocus="autofocus"  required autofocus>
                                     </div>
@@ -111,9 +111,9 @@
                                         <input type="password" placeholder="Password" class="form-control" id="password"   name="loginpassword">
                                     </div>
                                     <button type="submit" class="btn btn-success" name="submit" id="submit">登陆</button>
-                                    <button type="button" class="btn btn-success" onClick="singup()">注册</button>
+                                    <button type="button" class="btn btn-success" onClick="window.location.href=' . '\'singup.php\'' . '">注册</button>
                                 </form>
-                            </div><!--/.navbar-collapse -->
+                            </div>
                         ';
                     }
                 ?>
@@ -150,25 +150,114 @@
         ?>
 
 
+
         <footer class="footer mt-auto py-3">
             <div class="container" align="center" style="text-decoration:none;font-size:22px;">
                 <span class="text-muted">Produced By <a style="text-decoration:none;" href="https://www.emperinter.info">emperinter</a>| <a style="text-decoration:none;" href="https://github.com/emperinter/MessageBoard">Github</a> | <a style="text-decoration:none;" href="mailto:blog@emperinter.info">Email</a></a></span>
             </div>
         </footer>
 
-        <!--open singup-->
-        <script>
-            function singup(){
-                window.location= "singup.php";
-            }
-        </script>
-        <!--open admin-->
-        <script>
-            function admin(){
-                window.location= "admin.php";
-            }
-        </script>
-
     </body>   
 </html>
+
+
+
+<?php
+    // session_cache_limiter( "private, must-revalidate" );
+    
+    // session_start();
+
+    // if(isset($_SESSION['username'])){
+	// 	$user = $_SESSION['username'];
+	// }else{	
+	// 	$user = trim($_POST['loginusername']);
+	// 	$_SESSION['username'] = $user;
+	// }
+
+	// if(isset($_SESSION['password'])){
+	// 	$pass = $_SESSION['password'];
+	// }else{
+	// 	$pass=  trim(md5($_POST['loginpassword']));
+	// 	$_SESSION['password'] = $pass;
+	// }
+
+    $user = trim($_POST['loginusername']);
+    $pass=  trim(md5($_POST['loginpassword']));
+
+
+    echo'
+        <script>
+            alert('.$user.$pass.');
+        </script>
+    ';
+    
+    if($user != NULL && $pass != NULL){
+        $sql = "select * from user where username = '$user'";
+
+        $result = mysqli_query($conn,$sql);
+
+        $data = mysqli_fetch_assoc($result);
+
+        if($data){
+            if($pass == trim($data['password'])){
+                echo '
+                    <form id="Myform" action="admin.php" method="POST" >
+                        <input type="hidden" name="loginusername" value="' . trim($data['username']) . '"> 
+                    </form>						
+                    <script>
+                        time = 1;
+                        function autoSubmit(){
+                            time--;
+                            if(time == 0){
+                            document.getElementById("Myform").submit();
+                        }
+
+                        //action every second ,showTime()  
+                        setTimeout("autoSubmit()",1000); 	
+                        }
+                        autoSubmit();
+                    </script>
+                ';
+                $_SESSION['username'] = $user;
+                $_SESSION['password'] = $pass;
+                exit;
+            }else{
+                echo '	
+                    <script>
+                        alert("Your Password doesn`t Match ! Please Try again !");						
+                        time = 3;
+                        function autoSubmit(){
+                            time--;
+                            setTimeout("autoSubmit()",1000); 	
+                        }
+                        autoSubmit();	
+                        window.location.href = "index.php"; 	
+                    </script>
+                ';
+                session_destroy();
+            }
+        }else{
+            echo '	
+            <script>
+                alert("No User! Please Try again ! Or you can sign up !");						
+                time = 3;
+                function autoSubmit(){
+                    time--;
+                    setTimeout("autoSubmit()",1000); 	
+                }
+                autoSubmit();	
+                window.location.href = "index.php"; 	
+            </script>
+            ';
+        }
+    }else{
+
+        // echo '	
+        // <script>
+        //     alert("$user = NULL Or $pass = NULL");						
+        // </script>
+        // ';
+    }
+	mysqli_close($conn);
+?>
 
