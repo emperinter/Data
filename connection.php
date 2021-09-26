@@ -1,15 +1,23 @@
 <?php
-include 'config.php';
+    define('DB_HOST','localhost');
 
-$conn = mysqli_connect(DB_HOST,DB_USER,DB_PWD,DB_NAME);
+    define('DB_USER','notebook');
 
-// echo mysqli_errno($conn);
+    define('DB_PWD','notebook');
 
-if(mysqli_errno($conn)){
-	echo mysqli_error($conn);
-	exit;
-}
+    define('DB_NAME','notebook');
 
-mysqli_set_charset($conn,DB_CHARSET);
+    define('DB_CHARSET','utf8');
+
+	$conn = mysqli_connect(DB_HOST,DB_USER,DB_PWD,DB_NAME);
+
+	// echo mysqli_errno($conn);
+
+	if(mysqli_errno($conn)){
+		echo mysqli_error($conn);
+		exit;
+	}
+
+	mysqli_set_charset($conn,DB_CHARSET);
 
 ?>

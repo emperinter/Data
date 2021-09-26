@@ -1,4 +1,5 @@
-![file](https://www.emperinter.info/wp-content/uploads/2019/08/1565886091-image-1565886086031.png)
+![file](https://www.emperinter.info/wp-content/uploads/2020/10/1602158542-messageboard.png)
+![](https://www.emperinter.info/wp-content/uploads/2020/10/1602158685-messageboard_back.png)
 # 一、缘由
 **自己最近学完PHP和Mysql，就尝试写了一个留言本，但还有很多不好和错误的地方，欢迎大家多多指导!**
 
@@ -7,12 +8,17 @@
 
 # 二、配置步骤
 
-## 1.首先安装lnmp环境
+## 1.首先安装服务器环境
+
+- lnmp或lamp
+
 **[lnmp官网](https://lnmp.org/)**
 
 具体就不聊了，详情见**[WORDPRESS安装教程](https://www.emperinter.info/2018/09/06/%e6%90%ad%e5%bb%bawordpress%e5%8d%9a%e5%ae%a2/)**
 
 > 注意记住填入数据库用户名和密码等等类似的东西
+
+- 宝塔面板
 
 ## 2.配置服务器数据库
 
@@ -94,47 +100,10 @@ define('DB_CHARSET','utf8');         // 编码格式
 ?>
 ```
 
-# 三、各个文件的功能和作用
+
+# 三、版权注意
+
+> 目前用的框架是Bootstrap,以前用的EasyUI**应该给全部替换了**，这里还用到了jQuery,以及引入了第三方Markdown,如需使用请注意符合其使用条例！
 
 
-```mermaid
-graph TD
-A0[css.php/提供全局css]
-A2[EU/来提供admin里面的布局]
-A1[.htaccess/消除难看的.php后缀]
-```
-
-```mermaid
-graph TD
-A[config.php] -->B[connection.php]
-B --> C
-C[index.php] -->D{登陆/注册?}
-D -->|登陆| E{check.php来验证改用户是否存在?}
-D -->|注册| F[singup.php]
-F --> G[connect.php]
-G --> C
-E --> |存在|E1{密码是否正确?}
-E1 --> |正确|H
-E1 --> |错误|C
-H[admin.php]
-E --> |不存在|I[不存在改用户]
-I --> |注册|F
-H --> |提交数据|J[edit.php]
-J --> |提交成功|H
-```
-
-# 四、美中不足的地方
-- admin.php针对具体用户的note无法分页显示；
-- 后台无法编辑和删除文本
-- 难看，这个CSS没看过就凑活一下吧！
-- 前台和后台数据不能即使更新，有时候可能还更新不出来
-- 无超级管理员后台
-
-
-# 五、版权注意
-EU文件夹里面的所有东西归属EasyUI和Bootstrap所属，如由使用者产生相关的法律责任与我无关，具体详情请自己去查看相关版权规定！
-
-我刚才了解了一下如何选择开源协议，然后就去查看了[EasyUI](http://www.jeasyui.com/contact.php)和[Boostrap](https://github.com/twbs/bootstrap/blob/master/LICENSE)的协议，发现**EasyUI有** **[Commercial License](http://www.jeasyui.com/contact.php)**(商业协议)，但对于个人用户没有明确说明。而Boostarp则为MIT协议，因此受到此影响应该不大，所以若有想商业使用的人请去购买使用权限,以避免不必要的法律纠纷。
-
-> 我后续会替换掉EasyUI的部分
 
