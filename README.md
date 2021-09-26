@@ -3,7 +3,7 @@
 **自己最近学完PHP和Mysql，就尝试写了一个留言本，但还有很多不好和错误的地方，欢迎大家多多指导!**
 
 ## [项目地址/GITHUB](https://github.com/emperinter/MessageBoard)
-## [项目目前demo](https://www.emperinter.cf)
+## [项目目前demo](https://www.emperinter.tk)
 
 # 二、配置步骤
 
